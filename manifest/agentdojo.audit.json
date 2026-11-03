@@ -1,0 +1,47 @@
+{
+  "sources": [
+    {
+      "id": "agentdojo",
+      "upstream": "https://github.com/ethz-spylab/agentdojo",
+      "pin": "git HEAD 089ed468cf3ed0322acc66b0211f26d9d90dbf60 (= v0.1.35 tag + 5 commits, 2026-06-02); PyPI agentdojo==0.1.35 sdist sha256:9eacbc89d996f8656b235ad7b626bcf840b1ace7101174ca62d790c7c6d62956; all counts below measured on the installed 0.1.35 package at benchmark version v1",
+      "fetched_at": "2026-11-03T20:57:18Z",
+      "venue_status": "NeurIPS 2024 Datasets and Benchmarks Track (peer reviewed)",
+      "licence": "MIT (LICENSE file, Copyright (c) 2024 Edoardo Debenedetti, Jie Zhang, Mislav Balunovic, Luca Beurer-Kellner, Marc Fischer, Florian Tramer)",
+      "redistribution": "allowed_with_attribution",
+      "gated": false,
+      "cases_upstream": 629,
+      "cases_mapped": 208,
+      "cases_dropped": 421,
+      "drop_reasons": {
+        "payment_tool_missing:attack_side": 128,
+        "calendar_tool_missing:attack_side": 60,
+        "booking_tool_missing:attack_side": 40,
+        "messaging_tool_missing:attack_side": 21,
+        "calendar_tool_missing:utility_side": 66,
+        "messaging_tool_missing:utility_side": 52,
+        "filesystem_write_tool_missing:utility_side": 40,
+        "payment_tool_missing:utility_side": 10,
+        "booking_tool_missing:utility_side": 4
+      },
+      "family_supply": {
+        "F02": 16,
+        "F04": 101,
+        "F05": 73,
+        "F06": 342,
+        "F07": 40,
+        "F13": 16,
+        "F15": 20,
+        "F16": 21,
+        "B01": 97
+      },
+      "layer_supply": {
+        "contracts": 455,
+        "semantic": 121,
+        "privilege": 37,
+        "dcbf": 16,
+        "dfa": 0
+      },
+      "audit_notes": "OFFICIAL ARTEFACT. The repo moved: github.com/eth-zurich/AgentDojo and github.com/spylab/AgentDojo are dead; the official home is https://github.com/ethz-spylab/agentdojo (homepage agentdojo.spylab.ai), PyPI package `agentdojo`, versions 0.1.0-0.1.35, requires-python >=3.10. Fetched: full clone at HEAD 089ed468c (2026-06-02, v0.1.35+5 commits) and the verified 0.1.35 sdist, both under external/raw/agentdojo/ (repo/ and pypi/). Introspection venv created at external/raw/agentdojo/.venv with agentdojo==0.1.35 from PyPI (isolated install; the pinned shared environment was NOT touched; pyarrow not needed). COUNTS (measured, not quoted). Published claim is 97 user tasks and 629 security test cases; at benchmark version v1 the fetched package reproduces exactly both numbers. Four environments, actual names: banking, slack, travel, workspace (NOT workspace/bank as sketched in the audit request). Per environment at v1: workspace 40 user tasks x 6 injection tasks = 240 pairs, 24 tools; travel 20 x 7 = 140 pairs, 28 tools; banking 16 x 9 = 144 pairs, 11 tools; slack 21 x 5 = 105 pairs, 11 tools. Totals: 97 user tasks, 27 distinct injection tasks, 629 security cases = sum of per-environment (user task x injection task) grids (benchmark.py run_task_with_injection_tasks runs the full grid per attack; DoS attacks collapse to 1 injection). Discrepancies vs paper: none at v1 for 97/629, but (a) the 97 figure as reproduced by 0.1.35 includes repaired/renumbered definitions shipped in default_suites/v1_1_1, v1_1_2, v1_2_1 files (the base v1 files alone define 33 workspace and 17 slack user tasks; register_user_task stamps version (1,0,0), so later fixes appear under v1); (b) the current release line (v1.2/v1.2.2) adds 8 workspace injection tasks: 35 injection tasks and 949 security pairs at benchmark_version v1.2.2, user tasks still 97. Pin every harmonised row to benchmark_version v1 (629) or v1.2.2 (949) explicitly. LICENCE AND GATING. MIT, bundled in-package (src/agentdojo/data/suites/*/environment.yaml + injection_vectors.yaml); no HuggingFace dataset, no access request, gated=false; redistribution allowed_with_attribution (ship the MIT notice). INTEGRATION. Execution: a BasePipelineElement chain; mock backends are pydantic TaskEnvironment state machines manipulated by docstring-typed tools; every model tool call is executed by ToolsExecutor.query (src/agentdojo/agent_pipeline/tool_execution.py L46-115) via FunctionsRuntime.run_function (src/agentdojo/functions_runtime.py L246). Interception points for a pre-execution monitor: (1) subclass agentdojo.agent_pipeline.base_pipeline_element.BasePipelineElement, implement query(), and insert it before ToolsExecutor inside ToolsExecutionLoop(elements=...) - it sees messages[-1].tool_calls (function name + args) before execution and can withhold by appending a refusal tool-result or raising AbortAgentError; this is the documented defense hook (docs/concepts/agent_pipeline.md: 'You can also place defense components in the ToolsExecutionLoop'); (2) TaskSuite.run_task_with_pipeline(..., runtime_class=...) (src/agentdojo/task_suite/task_suite.py L339-346) accepts a FunctionsRuntime subclass overriding run_function - the single choke point through which every tool call reaches its mock backend. NOTE: there is NO Middleware/before_tool_call API in 0.1.35 (that existed only pre-0.1.0); in-repo PromptInjectionDetector (agent_pipeline/pi_detector.py) is post-execution (inspects tool outputs) unless placed as element (1). ATTACK CASE STRUCTURE: each injection task = BaseInjectionTask with GOAL (natural-language attacker instruction), ground_truth() (the exact FunctionCall(s) that constitute success, with placeholder_args) and security() (deep-copy env diff + output scan deciding if the attack succeeded); the attacker text is rendered by an attack template (important_instructions, tool_knowledge, direct, ignore_previous, system_message, injec_agent, 5 DoS variants; src/agentdojo/attacks/) into injection-vector placeholders declared in data/suites/<env>/injection_vectors.yaml (e.g. injection_bill_text, email_password_reset_injection, injection_dora_0) and embedded in environment.yaml content (email bodies, files, transaction subjects, calendar descriptions, Slack messages, webpages), so it reaches the agent only inside role=tool results of tool outputs; attacks target only vectors that actually surface in the ground-truth trajectory (BaseAttack.get_injection_candidates canary test). UTILITY: independent of security; BaseUserTask.utility(model_output, pre_environment, post_environment, strict) verifies the legitimate objective by diffing pre/post mock environment state (e.g. banking user_task_0 requires a transaction of exactly 98.70 to the bill IBAN) and/or matching GROUND_TRUTH_OUTPUT in the final answer, with utility_from_traces() for side-effect-free reads; utility is recorded for EVERY run including each attacked run (SuiteResults.utility_results keyed by (user_task_id, injection_task_id)) plus an injected-free utility mode (run_task_without_injection_tasks, attack=None); so a monitor that blocks everything scores utility 0 while security stays 1 - exactly the false-secure exposure SPEC section 2 demands. Injection goals are additionally run as plain user tasks (injection_tasks_utility_results) to prove the attacker goal is achievable. GATE-SURFACE MAPPING (point 5, provisional, computed from ground-truth FunctionCalls of all 97 tasks + 27 injections against admin_tool, code_execute, data_analysis, database_query, format_template, http_request, send_email, sql_query, web_search). Directly mediated today: all reads (transactions, mailbox, calendar, drive listing, directories, contacts) to database_query; send_email; get_webpage/post_webpage to http_request; account/user management (update_password, update_user_info, invite/remove/add slack users) and file/email deletion to admin_tool; travel POI discovery to web_search. 208 of 629 cases have BOTH the user-task and the attack ground truth inside that set; 380 pairs have an expressible ATTACK-side call (the extra 172 could be degraded to single-call, excluded from F10-F14 per SPEC section 5), and the remaining 249 are inexpressible even degraded because the attacker call itself needs a missing tool. Unexpressible 421 in total: 138 need a payment/transfer tool (send_money, schedule_transaction, update_scheduled_transaction; banking is almost entirely blocked), 126 need a calendar-write tool (create/cancel/reschedule/add_participants), 73 need messaging-send (send_direct_message, send_channel_message), 44 need booking/reservation (reserve_hotel/restaurant/car_rental), 40 need filesystem-write (create/append/share drive files; deletes were counted as admin_tool). For benign controls (SPEC section 9): 51 of 97 user tasks fully expressible today. Family/layer supply columns above are the audit's provisional per-injection-task classification at pair level (F06 exfiltration 342 dominant; F04 101; F05 73; F07 40; F15 20; F02 16; F13 16 via the $30k-in-increments structuring injection; F16 21 malicious-URL visit; no F01, F03, F08-F12, F14, F17 supply; 97 B01 benign controls counted separately from the 629), pending normalizer dedup per SPEC section 11. AgentDojo is therefore high-value but contracts-heavy: it pressures SPEC section 14 the hardest via the missing payment, calendar, messaging and filesystem tools, which banking and slack cases cannot be expressed without."
+    }
+  ]
+}

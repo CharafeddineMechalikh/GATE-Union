@@ -111,9 +111,11 @@ Benign cases must span the same tools, profiles and tenants as the attacks, othe
 
 ## 10 Balance and quota policy
 
-Target corpus about 2,000 cases, benign at 20 to 25 percent, and every family from F01 to F16 at a comparable count, provisionally 90 to 140 cases per family, so that no single family dominates the aggregate.
+Target corpus about 1,000 attacks, plus benign controls at 20 to 25 percent of the total rows.
 
-Quotas are computed from measured external supply after dedup, not imposed on it. Where a family cannot reach its quota from published sources, the shortfall is authored and the table records the share of that family that is authored. Families that are only obtainable by writing cases ourselves are evidence about our specification, not about the field, and the reporting contract says so.
+The quota axis is the enforcement layer, not the family. The testable claim of the paper is that five stages catch different things, so the corpus is sized to make each stage measurable: about 200 cases whose primary layer is each of privilege, dfa, contracts, semantic and dcbf. Families are the taxonomy within a layer, so a layer is reached through whatever families the published sources actually supply for it. Balancing families instead of layers would force equal counts on families that share an owning stage, which tests one property several times and buys nothing.
+
+Quotas are computed from measured external supply after dedup, not imposed on it. Where a layer cannot reach its quota from published sources, the shortfall is authored, and the table records the share of that layer that is authored. The DFA and D-CBF layers have no external supply at all, as the coverage tables show, so they are authored almost in full. Families that are only obtainable by writing cases ourselves are evidence about our specification, not about the field, and the reporting contract says so.
 
 ## 11 Deduplication
 
@@ -145,3 +147,4 @@ Raw downloads stay in `external/raw`, which is ignored. Redistribution is permit
 
 - v0.1, 2026-11-03, initial freeze of families, vectors, schema, layer rules and split discipline, before any case is authored or fetched.
 - v0.2, 2026-11-03, two vocabulary additions forced by the first mapping run, with no family or layer rule changed. `argument_embedded` and `unspecified` are added to section 4 because the GATE original suite models injection inside call arguments and records no delivery vector at all. `grant_collision`, `source_expected_stage` and `source_expected_pass` are added to section 5 so an upstream label is preserved rather than overwritten where our rules disagree with it; the first run found 52 such disagreements and 58 calls that also breach a tool grant.
+- v0.3, 2026-11-03, section 10 rewritten after the audits. The corpus target drops from about 2,000 to about 1,000 attacks, and the quota axis moves from family to enforcement layer at roughly 200 rows per stage. The reason is measured, not stylistic: the coverage tables show that families F01, F02 and F03 are all caught by the privilege stage, and F05 with F08 with F09 all by contracts, so a per-family quota would inflate the corpus without adding a single new invariant test. The two stages with zero external supply, dfa and dcbf, are the ones that carry the paper's complementary-stages claim, so they get the authored effort. No family definition, layer rule or expected-outcome rule changed.

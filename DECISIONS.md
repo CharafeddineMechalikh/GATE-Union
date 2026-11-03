@@ -131,3 +131,23 @@ Decision. When an external case is harmonised, its profile grants the tools the 
 Why. Under the profile as published, an InjecAgent attacker tool is simply not in the grant, so the privilege stage rejects it and the deeper layers never see it. Reporting that as coverage of five layers would be an artefact of the profile construction. Matching the capability lets each case reach the layer that owns its property, and the reviewer's distinction between the layer that owns a property and the layer that first rejects is preserved in a separate column.
 
 Consequence. Privilege-layer supply comes from the GATE original suite and from variants where the grant is deliberately left restricted, and this is stated in the coverage table rather than hidden.
+
+## D14, 2026-11-03, three enforcement asymmetries found while authoring the stateful families
+
+These were read out of `gate/security/dfa_supervisor.py`, `gate/core/monitor.py` and `gate/security/privilege_enforcer.py` in order to write cases against the real invariants. Each one changes what a benchmark number means, so they are recorded before the run rather than discovered in the results.
+
+One. The DFA loop limit is enforced per phase in `propose_transition` but only for ACTING in `validate_action_phase`, which is the function the runtime calls at a tool boundary. A `PLANNING` loop count past `max_loops_per_phase` therefore passes the boundary check. Authored F11 keeps its specification label for the two PLANNING shapes, and the resulting misses are reported as an enforcement gap, not relabelled as allowed.
+
+Two. The privilege stage's budget test reads an estimated *per-call* cost from `ToolCall.metadata`, which no adapter populates, so it is inert in every measured path. Accumulated cost is reachable only through the D-CBF resource barrier. That is why the cost half of family F12 is authored under F14 instead, and why the paper should describe cost exhaustion as a barrier property rather than a supervisor property.
+
+Three. Two of the three dangerous combinations the safety barrier looks for name tools outside the mediated surface, `file_read` with `send_email` and `database_query` with `webhook_post`. Only `sql_query` with `http_request` can ever fire, and only inside the five call window the barrier reads. Authored F14 safety shapes therefore use the reachable pair and place the second member at distance 1, 3 and 5, where distance 5 is a legitimate control because the older call has aged out of the window.
+
+## D15, 2026-11-03, authored stateful stratum: 460 attacks in 46 templates
+
+Decision. The dfa layer is authored to 200 attacks and the dcbf layer to 260, in ten fixed legitimate scenarios per violation shape, with 135 matched benign controls and 10 B02 hard negatives, frozen the same day as the generator.
+
+Why. D3 put the quota on enforcement layers, and the audits confirm zero inheritable supply for these two: InjecAgent, SafeClawBench, AgentDojo, ASPI and the prompt-injection sets all label a call by its content or its outcome, never by the transition system or the accumulated envelope. The dcbf overshoot is deliberate, it is the layer with three sub-properties and the one that carries the cumulative-harm argument, and per D7 a larger group is what buys a tighter interval.
+
+Consequence. What is held constant is the argument text. Inside a matched pair only `execution_context` changes, so any difference in the monitor's answer is a difference about accumulated state. Without that control a stateful benchmark cannot tell a barrier that works from a keyword filter that happens to fire.
+
+Known limit, stated here rather than in the results. The scope barrier needs both a context and an action embedding and the harness sets neither, so no authored row can breach it, and the published configuration contains four live barriers rather than five.
