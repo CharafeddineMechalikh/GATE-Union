@@ -1,0 +1,11 @@
+# Third-party sources are fetched by scripts/fetch_sources.sh into external/raw/.
+# They are licence-sensitive and must never be committed wholesale here.
+external/raw/
+external/cache/
+
+# Large derived artifacts stay out until the redistribution audit passes.
+harmonized/vectors/
+results/*.log
+splits/__pycache__/
+__pycache__/
+*.pyc

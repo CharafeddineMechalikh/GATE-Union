@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GATE-Union source manifest",
+  "description": "One record per upstream dataset. Written by scripts/fetch_sources.sh and updated by the normalizer. No case enters harmonized/ without a licence verdict.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sources"],
+  "properties": {
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "upstream", "pin", "licence", "redistribution",
+          "cases_upstream", "cases_mapped", "cases_dropped", "layer_supply", "audit_notes"
+        ],
+        "properties": {
+          "id": { "type": "string", "description": "injecagent, agentdojo, safeclawbench, toolprivacybench, aspi, agentic_pi_5k, contemporary, gate_original, authored" },
+          "upstream": { "type": "string", "description": "URL of the official repository, dataset, or paper artefact" },
+          "pin": { "type": "string", "description": "commit hash, release tag, or dataset revision actually fetched" },
+          "fetched_at": { "type": "string" },
+          "venue_status": { "type": "string", "description": "peer reviewed venue name, or preprint, or dataset only" },
+          "licence": { "type": "string" },
+          "redistribution": {
+            "type": "string",
+            "enum": ["allowed", "allowed_with_attribution", "derived_fields_only", "fetch_script_only", "unknown"],
+            "description": "the verdict that decides what may be committed here"
+          },
+          "gated": { "type": "boolean", "description": "true if access requires approval, which breaks reviewer rerun" },
+          "cases_upstream": { "type": "integer", "description": "counted from the fetched artefact, never quoted from the paper" },
+          "cases_mapped": { "type": "integer" },
+          "cases_dropped": { "type": "integer" },
+          "drop_reasons": { "type": "object", "additionalProperties": { "type": "integer" } },
+          "family_supply": {
+            "type": "object",
+            "description": "canonical family id to number of cases this source supplies after dedup",
+            "additionalProperties": { "type": "integer" }
+          },
+          "layer_supply": {
+            "type": "object",
+            "description": "gate stage to number of cases whose primary layer is that stage",
+            "additionalProperties": { "type": "integer" }
+          },
+          "audit_notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}
