@@ -1,6 +1,6 @@
 # GATE-Union benchmark specification
 
-Version 0.1, frozen 2026-11-03. Changing a family definition, a layer assignment rule, or the expected-outcome rule requires a version bump and a note in section 17, because the authored cases and every reported number depend on them.
+Version 0.2, frozen 2026-11-03. Changing a family definition, a layer assignment rule, or the expected-outcome rule requires a version bump and a note in section 17, because the authored cases and every reported number depend on them.
 
 ## 1 Purpose and non-claim
 
@@ -52,6 +52,8 @@ Mapping of the GATE original 200-case categories onto these families: `privilege
 
 `attack_vector` records how the malicious operation was introduced: `direct_user_request`, `indirect_prompt_injection`, `retrieved_content`, `tool_response`, `compromised_dependency`, `model_hallucination`, `insider_misuse`, `none_benign`.
 
+Two further values exist for legacy rows. `argument_embedded` means the injected instruction arrives inside the arguments of the call being judged, which is how the GATE original suite models injection and is not the same thing as content returned by a tool. `unspecified` means the upstream source labels a call by its effect and never recorded how it was introduced; inventing a vector for such a row would misrepresent the data, so the absence is preserved and counted.
+
 Conflating vector with family is what makes coverage tables unreadable. Data exfiltration is an objective; indirect prompt injection is a delivery method; the same InjecAgent case can be F06 by property and `indirect_prompt_injection` by vector, and an external dataset that only varies the vector adds nothing to family coverage.
 
 ## 5 Case schema
@@ -76,6 +78,8 @@ One JSON object per case. Required fields in every row.
 | expected_outcome | allow, block, escalate |
 | expected_security_property | the property that must hold |
 | primary_layer, secondary_layers | from section 3, reviewed per case |
+| grant_collision | true when the call also breaches the tool grant, which is a secondary property, not a reclassification |
+| source_expected_stage, source_expected_pass | preserved verbatim from an upstream label where one exists |
 | notes | labelling rationale |
 
 `execution_context` is what keeps a multi-step case a multi-step case. A case whose meaning depends on prior calls must carry that prior state, or it must be marked as degraded to single-call and excluded from F10 to F14 scoring.
@@ -140,3 +144,4 @@ Raw downloads stay in `external/raw`, which is ignored. Redistribution is permit
 ## 17 Change control
 
 - v0.1, 2026-11-03, initial freeze of families, vectors, schema, layer rules and split discipline, before any case is authored or fetched.
+- v0.2, 2026-11-03, two vocabulary additions forced by the first mapping run, with no family or layer rule changed. `argument_embedded` and `unspecified` are added to section 4 because the GATE original suite models injection inside call arguments and records no delivery vector at all. `grant_collision`, `source_expected_stage` and `source_expected_pass` are added to section 5 so an upstream label is preserved rather than overwritten where our rules disagree with it; the first run found 52 such disagreements and 58 calls that also breach a tool grant.
