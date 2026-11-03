@@ -119,6 +119,7 @@ def main() -> None:
                 "case_id": f"go_{case['id']}",
                 "source_dataset": "gate_original",
                 "source_case_id": case["id"],
+                "source_category": case["category"],
                 "source_version": suite.get("_meta", {}).get("version", "1.0"),
                 "license": "MIT",
                 "template_family": template_key(case),

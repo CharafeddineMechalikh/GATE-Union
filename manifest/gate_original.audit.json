@@ -37,7 +37,7 @@
         "privilege": 60,
         "semantic": 18
       },
-      "audit_notes": "200 rows collapse to 89 distinct attack templates; 52 rows carry a label conflict between the source category and the violated property. The suite has no tenant axis, so F03 is supplied by database scope standing in for tenancy, and it has no delivery-vector axis, so most rows map to attack_vector=unspecified. Nothing in this mapping was produced by running the monitor."
+      "audit_notes": "200 rows collapse to 89 distinct attack templates, so 111 rows are duplicate phrasings of a template already present; 52 rows carry a label conflict between the source category and the violated property, and 58 rows also breach a tool grant, which is recorded as a secondary layer rather than a reclassification. Families absent from this suite altogether: F08, F15, F17. The suite has no tenant axis, so F03 is supplied by database scope standing in for tenancy, and it has no delivery-vector axis, so most rows map to attack_vector=unspecified. Nothing in this mapping was produced by running the monitor."
     }
   ]
 }
