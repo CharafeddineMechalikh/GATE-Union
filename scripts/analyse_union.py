@@ -168,6 +168,41 @@ def main() -> None:
         lines.append(f"- `{shape}`: {c}")
     lines.append("")
 
+    # 7. why, in the monitor's own words. The shape list above says which controls
+    # were withheld; this says the mechanism, which is the part a reviewer needs in
+    # order to tell a threshold complaint from a structural one.
+    lines.append("## Mechanism of every withheld control")
+    lines.append("")
+    reasons = Counter((r["reason"].split(":")[0] if r["blocking_stage"] else "semantic escalate band")
+                      for r in blocked)
+    for reason, c in reasons.most_common():
+        lines.append(f"- {reason}: {c}")
+    lines.append("")
+    detail = defaultdict(list)
+    for r in blocked:
+        key = r["reason"][:96]
+        detail[key].append(r["template_family"].split("|")[-1])
+    for key, shapes in sorted(detail.items(), key=lambda kv: -len(kv[1]))[:8]:
+        lines.append(f"- `{key}` on {len(shapes)} rows ({', '.join(sorted(set(shapes))[:4])})")
+    lines.append("")
+
+    lines.append("## Where a block did not come from the stage that owns it")
+    lines.append("")
+    lines.append("Under short-circuiting the first stage that fires decides the row, so the "
+                 "owning-layer column is a claim about the case and the blocking-stage column is "
+                 "a fact about the pipeline. These rows are the gap between the two.")
+    lines.append("")
+    cross = defaultdict(int)
+    for r in full:
+        if r["expected_outcome"] != "allow" and r["primary_layer"] and \
+                r["blocking_stage"] and r["blocking_stage"] != r["primary_layer"]:
+            cross[(r["primary_layer"], r["blocking_stage"])] += 1
+    lines.append("| owning layer | actually first rejected by | rows |")
+    lines.append("| --- | --- | --- |")
+    for (own, first), c in sorted(cross.items(), key=lambda kv: -kv[1]):
+        lines.append(f"| {own} | {first} | {c} |")
+    lines.append("")
+
     out = RESULTS / "analysis.md"
     out.write_text("\n".join(lines), encoding="utf-8")
     print("\n".join(lines[:40]))
