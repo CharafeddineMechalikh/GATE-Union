@@ -2,7 +2,7 @@
   "stratum": "authored",
   "frozen": "2026-11-03",
   "spec_version": "0.3",
-  "commit": "61bf746c95f5260fdf56d1044443aa77fab70983",
+  "commit": "12b6e4f",
   "generator": "scripts/gen_authored.py",
   "rationale": "authored/RATIONALE.md",
   "rows": 595,
@@ -25,5 +25,8 @@
     "dfa": 200
   },
   "frozen_before_any_run": true,
-  "note": "Labels derived from SPEC v0.3 definitions and from the invariants read in gate/security/dfa_supervisor.py and gate/security/dcbf_monitor.py. See DECISIONS D12, D14, D15."
+  "note": "Labels derived from SPEC v0.3 definitions and from the invariants read in gate/security/dfa_supervisor.py and gate/security/dcbf_monitor.py. See DECISIONS D12, D14, D15.",
+  "amended_commit": "12b6e4f",
+  "amendment": "D16: benign email recipient moved inside the contract allowlist before the first full run; labels unchanged",
+  "sha256": "e9b0e09bd85397eb"
 }
