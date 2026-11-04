@@ -1,0 +1,18 @@
+{
+  "seed": 20261103,
+  "ratios": {
+    "calibration": 0.2,
+    "dev": 0.2,
+    "test": 0.6
+  },
+  "rows": 1540,
+  "counts": {
+    "test": 892,
+    "dev": 290,
+    "calibration": 358
+  },
+  "templates": 219,
+  "templates_spanning_splits": 0,
+  "grouping_key": "template_family + source_dataset",
+  "stratified_by": "primary_layer"
+}
