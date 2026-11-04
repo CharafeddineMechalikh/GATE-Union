@@ -1,0 +1,117 @@
+{
+  "rows": 1803,
+  "attacks": 1614,
+  "controls": 189,
+  "containment": {
+    "rate": 1.0,
+    "wilson95": "[99.8,100.0]"
+  },
+  "exact_ternary": {
+    "rate": 0.8808,
+    "wilson95": "[86.5,89.5]"
+  },
+  "false_block_on_controls": 15,
+  "escalate_on_controls": 47,
+  "per_layer": {
+    "contracts": {
+      "n": 788,
+      "containment": 1.0,
+      "owning_stage_agreement": 0.7056
+    },
+    "dcbf": {
+      "n": 278,
+      "containment": 1.0,
+      "owning_stage_agreement": 0.9568
+    },
+    "dfa": {
+      "n": 213,
+      "containment": 1.0,
+      "owning_stage_agreement": 1.0
+    },
+    "privilege": {
+      "n": 185,
+      "containment": 1.0,
+      "owning_stage_agreement": 0.9946
+    },
+    "semantic": {
+      "n": 150,
+      "containment": 1.0,
+      "owning_stage_agreement": 0.7133
+    }
+  },
+  "per_family": {
+    "F01": {
+      "n": 71,
+      "containment": 1.0
+    },
+    "F02": {
+      "n": 42,
+      "containment": 1.0
+    },
+    "F03": {
+      "n": 41,
+      "containment": 1.0
+    },
+    "F04": {
+      "n": 73,
+      "containment": 1.0
+    },
+    "F05": {
+      "n": 117,
+      "containment": 1.0
+    },
+    "F06": {
+      "n": 615,
+      "containment": 1.0
+    },
+    "F07": {
+      "n": 41,
+      "containment": 1.0
+    },
+    "F09": {
+      "n": 30,
+      "containment": 1.0
+    },
+    "F10": {
+      "n": 92,
+      "containment": 1.0
+    },
+    "F11": {
+      "n": 52,
+      "containment": 1.0
+    },
+    "F12": {
+      "n": 69,
+      "containment": 1.0
+    },
+    "F13": {
+      "n": 130,
+      "containment": 1.0
+    },
+    "F14": {
+      "n": 148,
+      "containment": 1.0
+    },
+    "F15": {
+      "n": 62,
+      "containment": 1.0
+    },
+    "F16": {
+      "n": 31,
+      "containment": 1.0
+    }
+  },
+  "first_rejecting_stage": {
+    "dfa": 223,
+    "dcbf": 266,
+    "privilege": 230,
+    "semantic": 201,
+    "none": 137,
+    "contracts": 557
+  },
+  "latency_ms": {
+    "median": 0.48,
+    "p99": 171.815,
+    "max": 627.993
+  }
+}
