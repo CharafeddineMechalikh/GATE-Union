@@ -1,0 +1,36 @@
+{
+  "stratum": "balancing",
+  "purpose": "Lift the two thin enforcement layers (privilege, semantic) toward the per-layer quota, DECISIONS D18, SPEC v0.3 section 10",
+  "frozen": "2026-11-04",
+  "spec_version": "0.3",
+  "commit": "efa02a2",
+  "sha256": "2bed7351e5e23ffd86abee915b4db51f6ae70e3b3a92eb1b0379208bfc828d9b",
+  "rows": 263,
+  "attacks": 257,
+  "controls": 6,
+  "benign_share": 0.023,
+  "violation_shapes": 257,
+  "distinct_attack_templates": 257,
+  "family_counts": {
+    "F01": 50,
+    "F02": 40,
+    "F03": 20,
+    "F16": 15,
+    "F04": 70,
+    "F15": 62
+  },
+  "attack_layer_counts": {
+    "privilege": 125,
+    "semantic": 132
+  },
+  "provenance": "authored; the only audited external privilege/semantic supply is AgentDojo (privilege 37, semantic 121) and is not folded into this file. SafeClawBench ships no tool calls and is therefore not external call supply (D18).",
+  "generator_correctness_check": {
+    "run": "results/balcheck.A4_full.summary.json",
+    "note": "A4_full over this file alone, before the benchmark run; a check on the generator, not a reported result",
+    "privilege_owning_stage_agreement": 1.0,
+    "semantic_containment": 1.0,
+    "controls_allowed": 6,
+    "controls_false_block": 0
+  },
+  "frozen_before_full_benchmark_run": true
+}

@@ -1,14 +1,14 @@
 {
-  "rows": 1540,
-  "attacks": 1357,
-  "controls": 183,
+  "rows": 1803,
+  "attacks": 1614,
+  "controls": 189,
   "containment": {
-    "rate": 0.6374,
-    "wilson95": "[61.2,66.3]"
+    "rate": 0.6134,
+    "wilson95": "[58.9,63.7]"
   },
   "exact_ternary": {
-    "rate": 0.6805,
-    "wilson95": "[65.7,70.3]"
+    "rate": 0.6539,
+    "wilson95": "[63.2,67.6]"
   },
   "false_block_on_controls": 0,
   "escalate_on_controls": 0,
@@ -29,31 +29,31 @@
       "owning_stage_agreement": 0.9061
     },
     "privilege": {
-      "n": 60,
+      "n": 185,
       "containment": 1.0,
-      "owning_stage_agreement": 0.9833
+      "owning_stage_agreement": 0.9946
     },
     "semantic": {
-      "n": 18,
+      "n": 150,
       "containment": 0.0,
       "owning_stage_agreement": 0.0
     }
   },
   "per_family": {
     "F01": {
-      "n": 21,
+      "n": 71,
       "containment": 1.0
     },
     "F02": {
-      "n": 2,
+      "n": 42,
       "containment": 1.0
     },
     "F03": {
-      "n": 21,
+      "n": 41,
       "containment": 1.0
     },
     "F04": {
-      "n": 3,
+      "n": 73,
       "containment": 0.0
     },
     "F05": {
@@ -92,20 +92,24 @@
       "n": 148,
       "containment": 0.0338
     },
+    "F15": {
+      "n": 62,
+      "containment": 0.0
+    },
     "F16": {
-      "n": 16,
+      "n": 31,
       "containment": 1.0
     }
   },
   "first_rejecting_stage": {
     "dfa": 203,
-    "none": 492,
-    "privilege": 105,
+    "none": 624,
+    "privilege": 230,
     "contracts": 557
   },
   "latency_ms": {
-    "median": 0.105,
-    "p99": 0.256,
-    "max": 0.763
+    "median": 0.108,
+    "p99": 0.257,
+    "max": 0.606
   }
 }

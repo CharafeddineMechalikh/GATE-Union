@@ -20,7 +20,8 @@ ROOT = Path(__file__).resolve().parent.parent
 STRATA = {
     "external": [ROOT / "harmonized" / "injecagent.jsonl"],
     "gate_original": [ROOT / "gate_original" / "gate_original.jsonl"],
-    "authored": [ROOT / "authored" / "authored.jsonl"],
+    "authored": [ROOT / "authored" / "authored.jsonl",
+                 ROOT / "authored" / "balancing.jsonl"],
 }
 
 

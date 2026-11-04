@@ -1,14 +1,14 @@
 {
-  "rows": 1540,
-  "attacks": 1357,
-  "controls": 183,
+  "rows": 1803,
+  "attacks": 1614,
+  "controls": 189,
   "containment": {
-    "rate": 0.0774,
-    "wilson95": "[6.4,9.3]"
+    "rate": 0.1425,
+    "wilson95": "[12.6,16.0]"
   },
   "exact_ternary": {
-    "rate": 0.187,
-    "wilson95": "[16.8,20.7]"
+    "rate": 0.2324,
+    "wilson95": "[21.3,25.2]"
   },
   "false_block_on_controls": 0,
   "escalate_on_controls": 0,
@@ -29,31 +29,31 @@
       "owning_stage_agreement": 0.0
     },
     "privilege": {
-      "n": 60,
-      "containment": 0.9833,
-      "owning_stage_agreement": 0.9833
+      "n": 185,
+      "containment": 0.9946,
+      "owning_stage_agreement": 0.9946
     },
     "semantic": {
-      "n": 18,
+      "n": 150,
       "containment": 0.0,
       "owning_stage_agreement": 0.0
     }
   },
   "per_family": {
     "F01": {
-      "n": 21,
+      "n": 71,
       "containment": 1.0
     },
     "F02": {
-      "n": 2,
-      "containment": 0.5
+      "n": 42,
+      "containment": 0.9762
     },
     "F03": {
-      "n": 21,
+      "n": 41,
       "containment": 1.0
     },
     "F04": {
-      "n": 3,
+      "n": 73,
       "containment": 0.0
     },
     "F05": {
@@ -92,18 +92,22 @@
       "n": 148,
       "containment": 0.0
     },
+    "F15": {
+      "n": 62,
+      "containment": 0.0
+    },
     "F16": {
-      "n": 16,
+      "n": 31,
       "containment": 1.0
     }
   },
   "first_rejecting_stage": {
-    "none": 1252,
-    "privilege": 105
+    "none": 1384,
+    "privilege": 230
   },
   "latency_ms": {
     "median": 0.009,
-    "p99": 0.183,
-    "max": 0.331
+    "p99": 0.178,
+    "max": 0.359
   }
 }

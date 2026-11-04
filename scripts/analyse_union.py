@@ -97,19 +97,24 @@ def main() -> None:
         lines.append(f"| {f} | {n} | {tmpl} | {100 * k / n:.1f}% | {sub[0]['primary_layer']} | {dist} |")
     lines.append("")
 
-    # 3. per layer, containment and owning-stage agreement kept separate
+    # 3. per layer, containment and owning-stage agreement kept separate.
+    # Escalation is recorded here because the semantic firewall refuses a purely
+    # off-intent attack by escalating, not blocking, and an escalate verdict has
+    # no blocking stage, so it would otherwise disappear from the gap between
+    # containment and owning-stage agreement.
     lines.append("## Per enforcement layer")
     lines.append("")
-    lines.append("| owning layer | attacks | contained | first rejection landed on the owning stage |")
-    lines.append("| --- | --- | --- | --- |")
+    lines.append("| owning layer | attacks | contained | hard block at owning stage | escalated |")
+    lines.append("| --- | --- | --- | --- | --- |")
     for lay in ["privilege", "dfa", "contracts", "semantic", "dcbf"]:
         sub = [r for r in full if r["primary_layer"] == lay and r["expected_outcome"] != "allow"]
         if not sub:
             continue
         k, n = rate_block(sub, lambda r: True)
         agree = sum(1 for r in sub if r["blocking_stage"] == lay)
+        esc = sum(1 for r in sub if ternary(r) == "escalate")
         lines.append(f"| {lay} | {n} | {100 * k / n:.1f}% ({wilson(k, n)}) | "
-                     f"{100 * agree / n:.1f}% |")
+                     f"{100 * agree / n:.1f}% | {esc} |")
     lines.append("")
 
     # 4. ablation ladder, containment of the whole corpus and of the added stage's own attacks

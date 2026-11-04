@@ -6,10 +6,10 @@ Cells are counted cases, taken from the per-source audits in `manifest/`, not fr
 
 | family | property | injecagent | agentdojo | safeclawbench | toolprivacybench | aspi | agentic_pi_5k | gate_original | authored | sources |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| F01 | granted-tool boundary | 0 | 0 | 0 | no public data | prompt-level only | prompt-level only | 21 | 0 | 1 |
-| F02 | role capability | 0 | 16 | 0 | no public data | prompt-level only | prompt-level only | 2 | 0 | 2 |
-| F03 | tenant isolation | 0 | 0 | 0 | no public data | prompt-level only | prompt-level only | 21 | 0 | 1 |
-| F04 | instruction versus intent | 0 | 101 | 67 | no public data | prompt-level only | prompt-level only | 3 | 0 | 3 |
+| F01 | granted-tool boundary | 0 | 0 | 0 | no public data | prompt-level only | prompt-level only | 21 | 50 | 2 |
+| F02 | role capability | 0 | 16 | 0 | no public data | prompt-level only | prompt-level only | 2 | 40 | 3 |
+| F03 | tenant isolation | 0 | 0 | 0 | no public data | prompt-level only | prompt-level only | 21 | 20 | 2 |
+| F04 | instruction versus intent | 0 | 101 | 67 | no public data | prompt-level only | prompt-level only | 3 | 70 | 4 |
 | F05 | harm inside the grant | 476 | 73 | 126 | no public data | prompt-level only | prompt-level only | 15 | 0 | 4 |
 | F06 | disclosure boundary | 544 | 342 | 158 | 0 | prompt-level only | prompt-level only | 20 | 0 | 4 |
 | F07 | irreversible state change | 17 | 40 | 50 | no public data | prompt-level only | prompt-level only | 24 | 0 | 4 |
@@ -20,8 +20,8 @@ Cells are counted cases, taken from the per-source audits in `manifest/`, not fr
 | F12 | step budget | 0 | 0 | 0 | no public data | prompt-level only | prompt-level only | 9 | 60 | 2 |
 | F13 | cumulative privacy | 0 | 16 | 0 | 0 | prompt-level only | prompt-level only | 10 | 120 | 3 |
 | F14 | accumulated envelope | 0 | 0 | 0 | no public data | prompt-level only | prompt-level only | 8 | 140 | 2 |
-| F15 | semantic masking | 0 | 20 | 0 | no public data | prompt-level only | prompt-level only | 0 | 0 | 1 |
-| F16 | network scope | 0 | 21 | 0 | no public data | prompt-level only | prompt-level only | 16 | 0 | 2 |
+| F15 | semantic masking | 0 | 20 | 0 | no public data | prompt-level only | prompt-level only | 0 | 62 | 2 |
+| F16 | network scope | 0 | 21 | 0 | no public data | prompt-level only | prompt-level only | 16 | 15 | 3 |
 | F17 | persistent memory | 0 | 0 | 133 | no public data | prompt-level only | prompt-level only | 0 | 0 | 1 |
 
 ## Table B, enforcement layer by source
@@ -30,10 +30,10 @@ The layer axis is the one the paper's claim lives on, so this is the table that 
 
 | layer | injecagent | agentdojo | safeclawbench | toolprivacybench | aspi | agentic_pi_5k | gate_original | authored | external total | authored share |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| privilege | 0 | 37 | 0 | 0 | 0 | 0 | 60 | 0 | 37 | 0% |
+| privilege | 0 | 37 | 0 | 0 | 0 | 0 | 60 | 125 | 37 | 56% |
 | dfa | 0 | 0 | 0 | 0 | 0 | 0 | 13 | 200 | 0 | 94% |
 | contracts | 1054 | 455 | 400 | 0 | 0 | 0 | 57 | 0 | 1909 | 0% |
-| semantic | 0 | 121 | 67 | 0 | 0 | 0 | 18 | 0 | 188 | 0% |
+| semantic | 0 | 121 | 67 | 0 | 0 | 0 | 18 | 132 | 188 | 39% |
 | dcbf | 0 | 16 | 0 | 0 | 0 | 0 | 18 | 260 | 16 | 88% |
 
 ## What the two tables say

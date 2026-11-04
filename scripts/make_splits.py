@@ -22,6 +22,7 @@ from typing import Any, Dict, List
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCES = [ROOT / "authored" / "authored.jsonl",
+           ROOT / "authored" / "balancing.jsonl",
            ROOT / "gate_original" / "gate_original.jsonl",
            ROOT / "harmonized" / "injecagent.jsonl"]
 OUT = ROOT / "splits"

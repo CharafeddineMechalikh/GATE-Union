@@ -36,8 +36,20 @@ SOURCES = [
 def audit_for(name: str, path: str) -> Dict[str, Any]:
     doc = json.loads((ROOT / path).read_text(encoding="utf-8"))
     if name == "authored":
-        return {"family_supply": doc["family_counts"], "layer_supply": doc["attack_layer_counts"],
-                "cases_upstream": doc["rows"], "flag": None}
+        # The authored stratum is two frozen files: the stateful dfa/dcbf corpus
+        # and the privilege/semantic balancing stratum (D18). They are one
+        # provenance column because both are authored, not external supply.
+        fam = dict(doc["family_counts"])
+        lay = dict(doc["attack_layer_counts"])
+        total_rows = doc["rows"]
+        bal = json.loads((ROOT / "manifest" / "balancing.freeze.json").read_text(encoding="utf-8"))
+        for k, v in bal["family_counts"].items():
+            fam[k] = fam.get(k, 0) + v
+        for k, v in bal["attack_layer_counts"].items():
+            lay[k] = lay.get(k, 0) + v
+        total_rows += bal["rows"]
+        return {"family_supply": fam, "layer_supply": lay,
+                "cases_upstream": total_rows, "flag": None}
     src = (doc["sources"] if isinstance(doc, dict) and "sources" in doc else [doc])
     match = [s for s in src if s.get("id") == name] or src
     s = match[0]

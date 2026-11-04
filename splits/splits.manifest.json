@@ -5,13 +5,13 @@
     "dev": 0.2,
     "test": 0.6
   },
-  "rows": 1540,
+  "rows": 1803,
   "counts": {
-    "test": 892,
-    "dev": 290,
-    "calibration": 358
+    "calibration": 346,
+    "test": 1132,
+    "dev": 325
   },
-  "templates": 219,
+  "templates": 482,
   "templates_spanning_splits": 0,
   "grouping_key": "template_family + source_dataset",
   "stratified_by": "primary_layer"
