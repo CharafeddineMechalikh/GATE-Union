@@ -147,7 +147,7 @@ def main() -> None:
     missed = defaultdict(list)
     for r in full:
         if r["expected_outcome"] != "allow" and ternary(r) == "allow":
-            missed[r["template_family"]].append(r["case_id"])
+            missed[r["template_family"]].append(r["id"])
     lines.append(f"{sum(len(v) for v in missed.values())} rows across {len(missed)} templates were "
                  f"allowed although the frozen label says otherwise.")
     lines.append("")

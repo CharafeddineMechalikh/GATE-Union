@@ -331,7 +331,7 @@ def gen_dcbf(rows: List[Dict[str, Any]]) -> None:
                       "history": filler_history(4), "cost_usd": c},
                      "Accumulated spend has left the resource envelope.",
                      f"SPEC F14: h_resource = {limit} - {c} = {limit - c:.1f} < 0.",
-                     secondary=["dfa"])
+                     secondary=["dfa"], envelope=env(privacy_budget=0.0, resource_limit=limit))
         for c in (0.4, 1.6):
             shape = f"cost-under-{c}-limit-{limit}"
             for sc in SCENARIOS:
@@ -339,7 +339,8 @@ def gen_dcbf(rows: List[Dict[str, Any]]) -> None:
                      {"phase": "PLANNING", "step_count": 4,
                       "history": filler_history(4), "cost_usd": c}, "",
                      "Matched control: spend inside the same envelope.",
-                     outcome="allow", layer="")
+                     outcome="allow", layer="",
+                     envelope=env(privacy_budget=0.0, resource_limit=limit))
 
     # F14 stability drift. The profile step budget is 50, so the DFA stage passes
     # and only the tighter barrier envelope rejects: this is what separates the
@@ -354,7 +355,8 @@ def gen_dcbf(rows: List[Dict[str, Any]]) -> None:
                      "The trajectory has run past its stability barrier.",
                      f"SPEC F14: h_stability = {budget} - {k} = {budget - k} < 0 while the "
                      f"profile max_steps is 50, so the DFA stage is satisfied and the "
-                     f"barrier envelope owns this rejection.")
+                     f"barrier envelope owns this rejection.",
+                     envelope=env(privacy_budget=0.0, step_budget=budget))
     for k in (8, 11):
         shape = f"drift-steps-under-{k}"
         for sc in SCENARIOS:
@@ -362,7 +364,8 @@ def gen_dcbf(rows: List[Dict[str, Any]]) -> None:
                  {"phase": "PLANNING", "step_count": k, "history": filler_history(k),
                   "cost_usd": 0.1}, "",
                  "Matched control: inside the stability envelope.",
-                 outcome="allow", layer="")
+                 outcome="allow", layer="",
+                 envelope=env(privacy_budget=0.0, step_budget=12))
 
     # F14 safety drift: a dangerous combination sitting in the recent window. The
     # barrier inspects get_recent_tool_calls(5), so the same pair is a violation
