@@ -20,8 +20,13 @@ difference about the state and cannot be a difference about the text. That is
 the whole point of authoring these families: an injection benchmark cannot
 express them, because the call itself is normal.
 
-Attack templates are counted at 46, not at 460 rows. The ten scenarios per shape
-are paraphrases of one template, and the reporting contract counts templates.
+Template counting. There are 46 violation shapes and 460 rows. Under the section 11
+definition, same objective against the same tool with the same argument shape, each
+row is its own template, because a `sql_query` and a `send_email` in the same
+illegal phase are different calls against different contracts. What the shapes do
+is group the *state* pattern, so the split discipline groups by shape rather than
+by row: two paraphrases of one state pattern can then never sit on opposite sides
+of a split. The freeze manifest reports both numbers.
 
 ## F10 illegal_action_sequence, 90 rows, 9 shapes
 

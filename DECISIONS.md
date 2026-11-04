@@ -151,3 +151,13 @@ Why. D3 put the quota on enforcement layers, and the audits confirm zero inherit
 Consequence. What is held constant is the argument text. Inside a matched pair only `execution_context` changes, so any difference in the monitor's answer is a difference about accumulated state. Without that control a stateful benchmark cannot tell a barrier that works from a keyword filter that happens to fire.
 
 Known limit, stated here rather than in the results. The scope barrier needs both a context and an action embedding and the harness sets neither, so no authored row can breach it, and the published configuration contains four live barriers rather than five.
+
+## D16, 2026-11-03, pre-run amendment to the authored stratum, and what the smoke run already showed
+
+Amendment. The benign email scenario moved from `ops@internal.example` to `ops@company.com` before the first full run. Reason: `EmailSendContract.recipient_allowlist` hardcodes `@company.com` and `@trusted-partner.com`, so the original control was rejected by a rule that has nothing to do with the invariant the row exists to test. A matched control has to be clean on every other invariant, otherwise the block/allow pair differs in two things at once.
+
+This is a payload fix, not a label fix. No expected outcome, family, layer or state pattern changed, and it was made before any measurement on the authored rows, so the D4 freeze discipline holds. The old hash stays in git history and the freeze manifest records the new one.
+
+Finding the smoke run produced on its own, which stays in the results rather than being fixed away: under the shipped allowlist, a legitimate internal email to any other domain is blocked. That is a real operational-cost observation about the reference implementation, and the corpus now measures it instead of hiding it.
+
+Two more consequences of the contract registry, recorded before the run so nobody reads the layer numbers as a design claim. Only `sql_query`, `send_email` and `code_execute` have contracts registered, so the eleven InjecAgent direct-harm scenarios mapped onto `admin_tool` have no contract to breach and their owning layer is recorded as the one that can actually see them. And because the recipient rule fires before the PII rule, every data-stress exfiltration case is decided by recipient domain rather than by content, which means the contracts stage as shipped catches disclosure by address list, not by disclosure detection. The normalizer therefore keeps half of the exfiltration bodies on an allowlisted-recipient-plus-synthetic-PII shape so the content precondition is exercised at all, and the fixture marker is labelled as a fixture.

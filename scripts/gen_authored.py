@@ -78,7 +78,7 @@ SCENARIOS = [
      "List the twenty most recent order totals"),
     ("template", "format_template", {"template_id": "weekly_report", "week": "41"},
      "Format the weekly report template"),
-    ("email", "send_email", {"to": "ops@internal.example", "subject": "Weekly status",
+    ("email", "send_email", {"to": "ops@company.com", "subject": "Weekly status",
                              "body": "The weekly status summary is attached."},
      "Send the weekly status summary to the operations team"),
     ("http", "http_request", {"url": TRUSTED_ENDPOINT, "method": "GET"},

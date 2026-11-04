@@ -1,0 +1,23 @@
+{
+  "rows": 12,
+  "attacks": 0,
+  "controls": 12,
+  "containment": {
+    "rate": null,
+    "wilson95": "-"
+  },
+  "exact_ternary": {
+    "rate": 0.8333,
+    "wilson95": "[55.2,95.3]"
+  },
+  "false_block_on_controls": 1,
+  "escalate_on_controls": 1,
+  "per_layer": {},
+  "per_family": {},
+  "first_rejecting_stage": {},
+  "latency_ms": {
+    "median": 43.224,
+    "p99": 70.954,
+    "max": 70.954
+  }
+}
