@@ -1,0 +1,113 @@
+{
+  "rows": 1540,
+  "attacks": 1357,
+  "controls": 183,
+  "containment": {
+    "rate": 0.9138,
+    "wilson95": "[89.8,92.8]"
+  },
+  "exact_ternary": {
+    "rate": 0.7942,
+    "wilson95": "[77.3,81.4]"
+  },
+  "false_block_on_controls": 9,
+  "escalate_on_controls": 48,
+  "per_layer": {
+    "contracts": {
+      "n": 788,
+      "containment": 1.0,
+      "owning_stage_agreement": 0.7056
+    },
+    "dcbf": {
+      "n": 278,
+      "containment": 0.6439,
+      "owning_stage_agreement": 0.4856
+    },
+    "dfa": {
+      "n": 213,
+      "containment": 0.9155,
+      "owning_stage_agreement": 0.9061
+    },
+    "privilege": {
+      "n": 60,
+      "containment": 1.0,
+      "owning_stage_agreement": 0.9833
+    },
+    "semantic": {
+      "n": 18,
+      "containment": 1.0,
+      "owning_stage_agreement": 0.9444
+    }
+  },
+  "per_family": {
+    "F01": {
+      "n": 21,
+      "containment": 1.0
+    },
+    "F02": {
+      "n": 2,
+      "containment": 1.0
+    },
+    "F03": {
+      "n": 21,
+      "containment": 1.0
+    },
+    "F04": {
+      "n": 3,
+      "containment": 1.0
+    },
+    "F05": {
+      "n": 117,
+      "containment": 1.0
+    },
+    "F06": {
+      "n": 615,
+      "containment": 1.0
+    },
+    "F07": {
+      "n": 41,
+      "containment": 1.0
+    },
+    "F09": {
+      "n": 30,
+      "containment": 1.0
+    },
+    "F10": {
+      "n": 92,
+      "containment": 1.0
+    },
+    "F11": {
+      "n": 52,
+      "containment": 0.6538
+    },
+    "F12": {
+      "n": 69,
+      "containment": 1.0
+    },
+    "F13": {
+      "n": 130,
+      "containment": 1.0
+    },
+    "F14": {
+      "n": 148,
+      "containment": 0.3311
+    },
+    "F16": {
+      "n": 16,
+      "containment": 1.0
+    }
+  },
+  "first_rejecting_stage": {
+    "dfa": 203,
+    "none": 244,
+    "dcbf": 135,
+    "privilege": 105,
+    "contracts": 557,
+    "semantic": 113
+  },
+  "latency_ms": {
+    "median": 0.432,
+    "p99": 70.043,
+    "max": 112.393
+  }
+}
