@@ -34,6 +34,7 @@ import harness  # noqa: E402  (path injected above)
 
 FILES = {
     "authored": ROOT / "authored" / "authored.jsonl",
+    "balancing": ROOT / "authored" / "balancing.jsonl",
     "gate_original": ROOT / "gate_original" / "gate_original.jsonl",
     "injecagent": ROOT / "harmonized" / "injecagent.jsonl",
 }
