@@ -9,3 +9,5 @@ results/*.log
 splits/__pycache__/
 __pycache__/
 *.pyc
+# Scratch run logs stay local and are never published.
+*.log

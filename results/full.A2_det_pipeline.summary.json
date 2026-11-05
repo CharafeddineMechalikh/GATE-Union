@@ -3,12 +3,12 @@
   "attacks": 1614,
   "controls": 189,
   "containment": {
-    "rate": 0.6134,
-    "wilson95": "[58.9,63.7]"
+    "rate": 0.6258,
+    "wilson95": "[60.2,64.9]"
   },
   "exact_ternary": {
-    "rate": 0.6539,
-    "wilson95": "[63.2,67.6]"
+    "rate": 0.665,
+    "wilson95": "[64.3,68.6]"
   },
   "false_block_on_controls": 0,
   "escalate_on_controls": 0,
@@ -25,8 +25,8 @@
     },
     "dfa": {
       "n": 213,
-      "containment": 0.9061,
-      "owning_stage_agreement": 0.9061
+      "containment": 1.0,
+      "owning_stage_agreement": 1.0
     },
     "privilege": {
       "n": 185,
@@ -78,7 +78,7 @@
     },
     "F11": {
       "n": 52,
-      "containment": 0.6154
+      "containment": 1.0
     },
     "F12": {
       "n": 69,
@@ -102,14 +102,14 @@
     }
   },
   "first_rejecting_stage": {
-    "dfa": 203,
-    "none": 624,
+    "dfa": 223,
+    "none": 604,
     "privilege": 230,
     "contracts": 557
   },
   "latency_ms": {
     "median": 0.108,
-    "p99": 0.257,
-    "max": 0.606
+    "p99": 0.232,
+    "max": 0.629
   }
 }

@@ -1,6 +1,6 @@
 # GATE-Union: a unified benchmark for runtime enforcement in LLM agents
 
-A harmonised evaluation artifact for [GATE](https://github.com/CharafeddineMechalikh/GATE), a runtime reference monitor that mediates tool calls made by LLM agents. Work in progress; the specification in [SPEC.md](SPEC.md) is frozen and the sources below are being audited.
+A harmonised evaluation artifact for [GATE](https://github.com/CharafeddineMechalikh/GATE), a runtime reference monitor that mediates tool calls made by LLM agents. The specification in [SPEC.md](SPEC.md) is frozen and every source below has a recorded licence audit; see [ATTRIBUTION.md](ATTRIBUTION.md).
 
 ## What this is, and what it is not
 
@@ -12,17 +12,17 @@ The contribution is the harmonisation schema, the coverage analysis, and the per
 
 | Source | Kind | Role in this benchmark | Licence verdict |
 | --- | --- | --- | --- |
-| InjecAgent | published benchmark | external attacks, unauthorized tool use and data stealing | pending |
-| AgentDojo | published benchmark | external attacks plus task utility controls | pending |
-| SafeClawBench | 2026 preprint | staged capability escalation, and a harm-evidence split we borrow as a metric | pending |
-| ToolPrivacyBench | 2026 preprint | argument-level and cumulative privacy, the main external supplier for contracts and barriers | pending |
-| ASPI | 2026 preprint | ambiguous-state injections, the natural supplier for the escalation band | pending |
-| Agentic prompt-injection 5K and boundary pairs | dataset | benign and hard-negative controls | pending |
-| Contemporary Attacks | to be identified | pending | pending |
+| InjecAgent | published benchmark | external attacks, unauthorized tool use and data stealing | MIT, redistributed with attribution |
+| AgentDojo | published benchmark | external attacks plus task utility controls | MIT, attribution; not redistributed |
+| SafeClawBench | 2026 preprint | staged capability escalation, and a harm-evidence split we borrow as a metric | MIT, attribution; not redistributed |
+| ToolPrivacyBench | 2026 preprint | argument-level and cumulative privacy, the main external supplier for contracts and barriers | unknown licence; not redistributed |
+| ASPI | 2026 preprint | ambiguous-state injections, the natural supplier for the escalation band | no licence; fetch script only |
+| Agentic prompt-injection 5K and boundary pairs | dataset | benign and hard-negative controls | CC BY 4.0 declared; not redistributed |
+| Contemporary Attacks | to be identified | audit pending (task open) | not yet identified |
 | GATE original suite | this work | stateful and policy-specific coverage | MIT |
 | Authored stateful set | this work | illegal transitions, loops, budgets, drift, cross-tenant | this repo |
 
-Per-source records, including pinned version, case counts before and after mapping, and drop reasons, live in `manifest/sources.json`. Raw downloads are not redistributed here; see the licence obligations in SPEC.md section 16.
+Per-source records, including pinned version, case counts before and after mapping, and drop reasons, live in `manifest/*.audit.json` and `manifest/*.notes.md`. Raw downloads are not redistributed here; see [ATTRIBUTION.md](ATTRIBUTION.md) and the licence obligations in SPEC.md section 16.
 
 ## Layout
 
@@ -48,3 +48,11 @@ The loader returns rows from one split and does not require GATE installed; it e
 ## Citation and reproduction
 
 A tagged release will be archived for a DOI before the manuscript claims it. Until then cite the repository at the commit you used, and record the commit in your results.
+
+## Licence and attribution
+
+The material authored for this repository is released under the MIT License (see
+[LICENSE](LICENSE)). Third-party datasets keep their own licences. Only InjecAgent
+(MIT, attribution) contributes redistributed case content; every other audited source
+is represented here by its audit record and, where permitted, a pinned fetch script,
+not by wholesale case data. See [ATTRIBUTION.md](ATTRIBUTION.md) and SPEC.md section 16.
