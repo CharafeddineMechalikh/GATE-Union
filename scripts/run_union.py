@@ -3,7 +3,7 @@
 Run from inside gate-union:
     python scripts/run_union.py --strata authored gate_original injecagent
     python scripts/run_union.py --dedup            # one representative per template
-    python scripts/run_union.py --ablations A4_full A2_det_pipeline
+    python scripts/run_union.py --ablations A5_full A3_det_pipeline
 
 This does not re-implement measurement. It imports benchmarks/harness.py, which
 is the single path every published number comes from, and adapts a union row to
@@ -42,6 +42,8 @@ RESULTS = ROOT / "results"
 
 
 def load_rows(strata: List[str], dedup: bool) -> List[Dict[str, Any]]:
+    if "all" in strata:
+        strata = list(FILES)
     rows: List[Dict[str, Any]] = []
     for name in strata:
         path = FILES[name]
@@ -156,8 +158,8 @@ def summarise(results: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--strata", nargs="+", default=["authored", "gate_original", "injecagent"])
-    ap.add_argument("--ablations", nargs="+", default=["A4_full"],
+    ap.add_argument("--strata", nargs="+", default=["all"])
+    ap.add_argument("--ablations", nargs="+", default=["A5_full"],
                     help="keys of harness.ABLATIONS")
     ap.add_argument("--dedup", action="store_true", help="one representative per template family")
     ap.add_argument("--limit", type=int, default=0)
