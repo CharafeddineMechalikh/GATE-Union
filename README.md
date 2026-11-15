@@ -15,7 +15,8 @@ authors did not write where such cases exist, and on newly authored cases where 
 - **972 authored** (716 attacks, 256 benign) across eleven categories `A`–`K`, plus **985 imported**
   (937 attacks, 48 benign) in category `X`.
 - **Three execution levels**: atomic (L1, 1,517), compositional (L2, 197), contextual (L3, 243).
-- **Seven enforcing layers**: capability, workflow, semantic, ifc, contracts, dcbf, hitl.
+- **Six enforcement layers**: capability, workflow, semantic, ifc, contracts, dcbf, with
+  human-in-the-loop (HITL) as the final decision on a withheld call rather than a seventh layer.
 - Every case carries a full schema-1.3 record: scenario and threat model, declared environment and
   policy, the expected call sequence, the proposed action, the expected decision
   (`ALLOW` / `DENY` / `REQUIRE_APPROVAL`), the designated enforcing layer, per-layer ground-truth
