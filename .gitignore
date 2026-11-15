@@ -11,3 +11,11 @@ __pycache__/
 *.pyc
 # Scratch run logs stay local and are never published.
 *.log
+
+# Local scratch scripts and run output (kept on disk, never published)
+_tmp_*
+*.npy
+*.bat
+/run_out.txt
+/run_union_output.txt
+/analysis_alignment_out.txt

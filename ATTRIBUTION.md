@@ -1,17 +1,24 @@
 # Attribution and licence
 
-The GATE-Union artifact is released under the MIT License (see [LICENSE](LICENSE)). That
-licence covers the material authored for this repository: the harmonisation schema, the
-specification, the scripts, the authored stateful set, and the derived coverage and analysis
-tables. Third-party datasets keep their own licences, recorded per source under
-`manifest/*.audit.json` and `manifest/*.notes.md`.
+The GATE-Union artifact is released under the MIT License (see [LICENSE](LICENSE)). That licence
+covers the material authored for this repository: the schema, the specification, the generator and
+validator, the authored cases, and the derived coverage and analysis tables. Third-party datasets
+keep their own licences, recorded per source under `manifest/*.audit.json` and `manifest/*.notes.md`.
 
 ## Redistributed third-party data
 
-Only one external source contributes redistributed case content to this repository, and that
-is **InjecAgent** (`harmonized/injecagent.jsonl`, `harmonized/injecagent.excluded.jsonl`, and the
-InjecAgent rows carried into `splits/`). The GATE original suite and the authored set are this
-work and need no third-party notice.
+The extended corpus imports 985 rows as category `X` (frozen in
+`gate_union/external/union_external.jsonl`, digest
+`a30112f9a34b060f9ee238fcf67b534cab76c0c78842c08dd9b7be26e04a1e94`). Two of the three sources are
+third-party data redistributed here under their MIT licences; the GATE original suite is this work
+and needs no third-party notice. Every imported row carries its source, case id, version pin,
+licence and digest in its `provenance` block.
+
+| Source | Imported rows | Licence | Redistribution |
+| --- | --- | --- | --- |
+| InjecAgent | 745 | MIT, attribution | allowed with attribution |
+| SafeClawBench | 92 | MIT, attribution | allowed with attribution |
+| GATE original suite | 148 | MIT (this work) | 200 rows less 52 label conflicts |
 
 ### InjecAgent
 
@@ -47,20 +54,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
+### SafeClawBench
+
+- Upstream: <https://huggingface.co/datasets/sairights/safeclawbench>
+- Pin: revision `e6c29204c24a5910600aae854baae57a51586655` (fetched 2026-11-03)
+- Venue status: preprint (arXiv:2606.18356), not peer reviewed
+- Licence: MIT License (LICENSE file sha256
+  `b6d40713351ebc3a4c07cb5e5890ecafe2ddb911336184408994e80b9e6fa8bc`; cardData `license:mit`)
+- Redistribution: allowed with attribution
+- Adopted: 92 calls from the executable mirror (58 `database_write` mapped to `sql_query`, 34
+  `send_email` outside the contract allowlist); the remaining 508 are excluded with recorded reasons
+  in `manifest/safeclawbench.audit.json`.
+
+The LICENSE file at the pinned revision reads "ClawSecBench Authors", an internal name not used
+elsewhere in the release; the attribution string is recorded as read and is pending author
+confirmation before it is cited. The standard MIT permission notice above applies verbatim with
+that copyright line.
+
 ## Sources audited but not redistributed
 
 The remaining sources are audited and recorded, but no case content from them is committed here.
-Where a licence does not permit wholesale redistribution, the artifact ships case identifiers plus
-a pinned fetch script and derived fields only, per SPEC.md section 16.
+Where a licence does not permit wholesale redistribution, the artifact ships an audit record and,
+where permitted, a pinned fetch path, not wholesale case data.
 
 | Source | Licence verdict | Committed here |
 | --- | --- | --- |
-| AgentDojo | MIT, attribution | No (audit and fetch path only) |
-| SafeClawBench | MIT, attribution | No (audit only) |
+| AgentDojo | MIT, attribution | No (held out for external validation; never imported) |
 | Agentic prompt-injection 5K and boundary pairs | CC BY 4.0 declared but licence text not shipped | No (audit only) |
 | ToolPrivacyBench | Unknown, no licence stated | No (audit only) |
-| ASPI | No licence granted | No (fetch script only) |
+| ASPI | No licence granted | No (audit only) |
 | Contemporary Attacks | Not yet identified | No |
 
-See `manifest/` for the pinned version, case counts before and after mapping, and drop reasons
-for every source.
+See `manifest/` for the pinned version, case counts before and after mapping, and drop reasons for
+every source.

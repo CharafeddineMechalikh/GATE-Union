@@ -1,58 +1,89 @@
-# GATE-Union: a unified benchmark for runtime enforcement in LLM agents
+# GATE-Union: a layered benchmark for runtime enforcement in LLM agents
 
-A harmonised evaluation artifact for [GATE](https://github.com/CharafeddineMechalikh/GATE), a runtime reference monitor that mediates tool calls made by LLM agents. The specification in [SPEC.md](SPEC.md) is frozen and every source below has a recorded licence audit; see [ATTRIBUTION.md](ATTRIBUTION.md).
+An evaluation artifact for [GATE](https://github.com/CharafeddineMechalikh/GATE), a runtime
+reference monitor that mediates the tool calls an LLM agent makes. This repository ships the
+**extended 1,957-case corpus** (schema `1.3`, generator `1.3.0`). It replaces the earlier
+1,895-row multi-stratum corpus, which is preserved in the git history and in
+[DECISIONS.md](DECISIONS.md); 985 of its rows are imported here as category `X`.
 
-## What this is, and what it is not
+## What this is
 
-This benchmark combines published agent-security datasets with the GATE original suite and a newly authored stateful set, then maps every case onto the five GATE enforcement stages.
+The corpus tests each enforcement property at the tool-call boundary, on cases the monitor's
+authors did not write where such cases exist, and on newly authored cases where they do not.
 
-The contribution is the harmonisation schema, the coverage analysis, and the per-layer mapping. It is not a new attack collection. The value of the artifact is that it lets each enforcement property be tested on cases written by other groups where such cases exist, and shows plainly where they do not.
+- **1,957 cases** = **1,653 malicious** + **304 benign** (9 of the benign tasks are approval-gated).
+- **972 authored** (716 attacks, 256 benign) across eleven categories `A`–`K`, plus **985 imported**
+  (937 attacks, 48 benign) in category `X`.
+- **Three execution levels**: atomic (L1, 1,517), compositional (L2, 197), contextual (L3, 243).
+- **Seven enforcing layers**: capability, workflow, semantic, ifc, contracts, dcbf, hitl.
+- Every case carries a full schema-1.3 record: scenario and threat model, declared environment and
+  policy, the expected call sequence, the proposed action, the expected decision
+  (`ALLOW` / `DENY` / `REQUIRE_APPROVAL`), the designated enforcing layer, per-layer ground-truth
+  labels, and provenance. The designated layer is a per-case design field, so layer attribution is
+  not circular.
 
-## Sources and provenance
-
-| Source | Kind | Role in this benchmark | Licence verdict |
-| --- | --- | --- | --- |
-| InjecAgent | published benchmark | external attacks, unauthorized tool use and data stealing | MIT, redistributed with attribution |
-| AgentDojo | published benchmark | external attacks plus task utility controls | MIT, attribution; not redistributed |
-| SafeClawBench | 2026 preprint | staged capability escalation, and a harm-evidence split we borrow as a metric | MIT, attribution; not redistributed |
-| ToolPrivacyBench | 2026 preprint | argument-level and cumulative privacy, the main external supplier for contracts and barriers | unknown licence; not redistributed |
-| ASPI | 2026 preprint | ambiguous-state injections, the natural supplier for the escalation band | no licence; fetch script only |
-| Agentic prompt-injection 5K and boundary pairs | dataset | benign and hard-negative controls | CC BY 4.0 declared; not redistributed |
-| Contemporary Attacks | to be identified | audit pending (task open) | not yet identified |
-| GATE original suite | this work | stateful and policy-specific coverage | MIT |
-| Authored stateful set | this work | illegal transitions, loops, budgets, drift, cross-tenant | this repo |
-
-Per-source records, including pinned version, case counts before and after mapping, and drop reasons, live in `manifest/*.audit.json` and `manifest/*.notes.md`. Raw downloads are not redistributed here; see [ATTRIBUTION.md](ATTRIBUTION.md) and the licence obligations in SPEC.md section 16.
+The contribution is the taxonomy, the coverage discipline and the per-layer mapping, not a new
+attack collection. Imported rows keep their source label verbatim.
 
 ## Layout
 
-- `SPEC.md` the frozen specification: families, vectors, schema, layer rules, split discipline
-- `external/` harmonised rows from other groups' datasets, with provenance on every row
-- `gate_original/` the 200-case GATE suite converted to the common schema
-- `authored/` newly written cases, date stamped and frozen before any tuning
-- `harmonized/` the merged corpus, one JSON lines file per stratum
-- `splits/` calibration and test splits, disjoint by template family
-- `scripts/` fetchers, normalizers, the layer mapper, dedup, coverage tables
-- `results/` per-case monitor runs and the coverage tables they depend on
-
-## The schema in one line
-
-Each case carries its source and original identifier, a canonical attack family naming the violated property, an attack vector naming how the malicious operation was introduced, the tool call with arguments, the execution context including prior state, the expected outcome, and the primary plus secondary enforcement layers. Family and vector are separate axes; see SPEC.md sections 3 and 4.
+- `gate_union/out/dataset.jsonl` the corpus, one JSON object per line (1,957 rows)
+- `gate_union/out/manifest.json` counts, `dataset_sha256`, schema and generator version
+- `gate_union/out/coverage.{md,csv,json}` the per-category and per-subcategory coverage matrix
+- `gate_union/out/validation.{md,json}` the eighteen-check QA report
+- `gate_union/schema/attack_case.schema.json` the JSON Schema (draft-07)
+- `gate_union/generator/` the deterministic authored-case generator
+- `gate_union/external/` the importer and the frozen imported rows (`union_external.jsonl`) with provenance
+- `gate_union/responses/` the tool-response corpus (109 fixtures, 146 scenarios)
+- `gate_union/validate.py` the structural, coverage and separation checks
+- `gate_union/docs/` design, evaluation, threat-model and tool-response documentation
+- `manifest/` per-source licence audits (provenance for the imported rows)
+- `results/` historical measurement artifacts from the retired corpus (provenance only)
+- `scripts/` the retired corpus's historical generation and analysis pipeline (provenance only)
+- [SPEC.md](SPEC.md) the dataset specification, [DECISIONS.md](DECISIONS.md) the change log,
+  [ATTRIBUTION.md](ATTRIBUTION.md) the licence notices
 
 ## Using it
 
-The loader returns rows from one split and does not require GATE installed; it exposes the common schema and a thin adapter that turns a row into a tool-call interception request. Split selection is by template family, so threshold calibration and evaluation cannot share a template.
+Each line of `gate_union/out/dataset.jsonl` is one self-contained case; no GATE installation is
+needed to read it. The generator and validator import the GATE framework's `gzt` package
+(`gzt.policies.destination_trust`), so rebuilding or validating requires the `gate-zero-trust`
+directory of a [GATE](https://github.com/CharafeddineMechalikh/GATE) checkout on `PYTHONPATH`, plus
+`jsonschema`:
 
-`python scripts/load.py --split test --stratum external` prints the cases in that slice.
+```
+export PYTHONPATH=/path/to/GATE/gate-zero-trust   # provides gzt
+python -m gate_union.generator.build              # rebuild gate_union/out/ deterministically
+python gate_union/validate.py                     # eighteen checks; exit 1 if any hard check fails
+```
 
-## Citation and reproduction
+The rebuild is byte-reproducible: `dataset_sha256`
+`4ed706b94a09a9b8c3d1ec6660e1cab73e26179b9e30488bf89e1153cf7d400f` (verified, 18/18 checks pass).
 
-A tagged release will be archived for a DOI before the manuscript claims it. Until then cite the repository at the commit you used, and record the commit in your results.
+Evaluation runs through the GATE framework's `gzt` harness, which ships with
+[GATE](https://github.com/CharafeddineMechalikh/GATE) (not in this repository):
 
-## Licence and attribution
+```
+USE_TF=0 USE_TORCH=1 python -m gzt.evaluate --dataset gate_union/out/dataset.jsonl --out target
+```
 
-The material authored for this repository is released under the MIT License (see
-[LICENSE](LICENSE)). Third-party datasets keep their own licences. Only InjecAgent
-(MIT, attribution) contributes redistributed case content; every other audited source
-is represented here by its audit record and, where permitted, a pinned fetch script,
-not by wholesale case data. See [ATTRIBUTION.md](ATTRIBUTION.md) and SPEC.md section 16.
+## Provenance and licence
+
+The authored material is released under the MIT License (see [LICENSE](LICENSE)). The 985 imported
+rows (category `X`) come from three sources, each with a recorded licence verdict in
+`manifest/*.audit.json` and a per-row `provenance` block (source, case id, version pin, licence,
+digest):
+
+| Source | Imported rows | Licence | Notice |
+| --- | --- | --- | --- |
+| InjecAgent | 745 | MIT, attribution | Copyright (c) 2023 Qiusi Zhan |
+| GATE original suite | 148 | MIT (this work) | 200 rows less 52 label conflicts |
+| SafeClawBench | 92 | MIT, attribution | ClawSecBench Authors |
+
+The held-out AgentDojo suite is never imported; the importer refuses to run if it finds it. See
+[ATTRIBUTION.md](ATTRIBUTION.md) for the full notices and the sources audited but not redistributed.
+
+## Citation
+
+A tagged release will be archived for a DOI before the manuscript claims it. Until then, cite the
+repository at the commit you used and record that commit in your results.
