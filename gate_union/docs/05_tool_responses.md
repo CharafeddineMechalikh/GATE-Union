@@ -10,7 +10,7 @@ Related: [02_architecture.md](02_architecture.md) for where inspection sits in t
 
 The call-side benchmark labels the action an agent proposes. A deployed gateway also sees the response a tool returns, and most indirect prompt-injection failures happen on that side: the model reads a page, ticket or email and then acts on text inside it. Testing only proposed calls cannot show whether returned content is treated as data.
 
-The response inspector is therefore a cross-cutting component, not an eighth decision layer. It runs inside `ReferenceMonitor.execute`, after the action has executed and its postconditions passed. The seven-layer claim and the deny-dominant lattice are unchanged; the inspector decides what may enter the agent's context and records provenance the workflow layer can then enforce.
+The response inspector is therefore a cross-cutting component, not a seventh decision layer. It runs inside `ReferenceMonitor.execute`, after the action has executed and its postconditions passed. The six-layer claim and the deny-dominant lattice are unchanged; the inspector decides what may enter the agent's context and records provenance the workflow layer can then enforce.
 
 ```mermaid
 flowchart LR

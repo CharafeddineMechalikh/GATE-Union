@@ -8,7 +8,7 @@ Related: [01_repository_assessment.md](01_repository_assessment.md) for the gap 
 
 ## 1. What this package is
 
-`gzt` is an independent reimplementation of the seven enforcement layers the task specifies. It does not import the `gate/` runtime; it shares only the conceptual pipeline. Every layer returns a structured `LayerResult`, and a deny-dominant combiner produces the final decision.
+`gzt` is an independent reimplementation of the six enforcement layers the task specifies, with human-in-the-loop as the final decision on a withheld call. It does not import the `gate/` runtime; it shares only the conceptual pipeline. Every layer returns a structured `LayerResult`, and a deny-dominant combiner produces the final decision.
 
 ```mermaid
 flowchart TD
@@ -98,7 +98,7 @@ The supervisor keeps the FSM state in `RuntimeState`, not in the layer object, s
 
 Model: `sentence-transformers/all-MiniLM-L6-v2`, normalised embeddings, loaded lazily once per layer instance. Prototypes are grouped into families (identity claim, instruction source, memory, tool output, evasion, context, deception, goal), and each family's score is the best cosine similarity over its prototypes. Benign anchors give `benign_similarity`, which separates "harmful-looking" from "normal for this tool".
 
-Rules and thresholds (`DEFAULT_THRESHOLDS`): identity claim, instruction source (with an objective-similarity gate), memory write, code from tool output, encoded payload that decodes to data movement, audit suppression, credential change caused by context, goal drift. Each rule names its threshold in the evidence so a reviewer can recompute the verdict.
+Rules and thresholds (`DEFAULT_THRESHOLDS`): identity claim, instruction source (with an objective-similarity gate), memory write, code from tool output, encoded payload that decodes to data movement, audit suppression, credential change caused by context, goal drift. Each rule names its threshold in the evidence so a reader can recompute the verdict.
 
 The layer reads the decoded payload (`base64`, `hex`, `rot13`, `url`) before scoring, so obfuscation is scored on the plaintext as well as on the encoded string.
 
@@ -166,7 +166,7 @@ The generator is part of the evidence, not a fixture: five templates and three w
 
 `gzt/responses.py`, enforced through `gzt/monitor.py::execute` and `gzt/workflow.py::_response_following`
 
-The pipeline approves calls; the inspector handles what a tool returns. It is cross-cutting rather than an eighth layer: it runs after an executed call passes postcondition verification, validates the envelope, joins the declared classification with the resource the call touched, quarantines foreign-tenant and malformed bodies, decodes concealed instructions, and taints any content that carries an instruction, an authority or approval claim, or provenance below the tenant. Accepted content is retained as data; nothing in the inspector can add a grant, create an approval, change the objective or advance the workflow state.
+The pipeline approves calls; the inspector handles what a tool returns. It is cross-cutting rather than a seventh layer: it runs after an executed call passes postcondition verification, validates the envelope, joins the declared classification with the resource the call touched, quarantines foreign-tenant and malformed bodies, decodes concealed instructions, and taints any content that carries an instruction, an authority or approval claim, or provenance below the tenant. Accepted content is retained as data; nothing in the inspector can add a grant, create an approval, change the objective or advance the workflow state.
 
 Tainted responses are appended to `RuntimeState.untrusted_outputs`. Before a later action is approved, the workflow layer compares its arguments with destinations, commands, URLs and SQL statements found in that output and refuses an action that copies one the trusted objective never named (`WF-RESPONSE-001`). Full design, corpus and measured results are in [05_tool_responses.md](05_tool_responses.md).
 

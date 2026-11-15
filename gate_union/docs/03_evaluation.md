@@ -22,7 +22,7 @@ Every number below comes from replaying the recorded action sequence of each cas
 - Intervals are Wilson 95%; recall and F1 also carry a seeded bootstrap over cases (1,000 resamples, seed fixed in the harness).
 - The calibration/test split is by `sha256(case_id)[0] & 1`; nothing is tuned on the test half.
 
-The configuration is all seven layers in the order capability, workflow, semantic, ifc, contracts, dcbf, hitl, with tenant isolation before the pipeline, the circuit breaker around it, and postcondition verification after execution.
+The configuration is all six enforcement layers in the order capability, workflow, semantic, ifc, contracts, dcbf, with human-in-the-loop as the final decision on a withheld call, tenant isolation before the pipeline, the circuit breaker around it, and postcondition verification after execution.
 
 ## 2. Corpus composition
 
@@ -45,7 +45,7 @@ The authored subset still carries three execution levels: 526 L1, 88 L2 and 66 L
 | capability only | 202 | 0 | 1,180 | 283 | 100.0% | 14.6% | 0.255 | 29.1% | 29.1% | 14.6% |
 | capability + contracts | 987 | 6 | 395 | 277 | 99.4% | 71.4% | 0.831 | 75.9% | 75.6% | 71.4% |
 | + IFC | 1,029 | 6 | 353 | 277 | 99.4% | 74.5% | 0.851 | 78.4% | 78.1% | 74.5% |
-| **full (7 layers)** | **1,143** | **6** | **239** | **277** | **99.5% [98.9, 99.8]** | **82.7% [80.6, 84.6]** | **0.903** | **85.3%** | **84.6%** | **81.7%** |
+| **full pipeline** | **1,143** | **6** | **239** | **277** | **99.5% [98.9, 99.8]** | **82.7% [80.6, 84.6]** | **0.903** | **85.3%** | **84.6%** | **81.7%** |
 
 The full pipeline contains 1,143 of 1,382 attacks and blocks 6 of 283 benign cases. Test-split recall is 84.7% (561/662) with bootstrap `[0.8187, 0.8731]`; test F1 is 0.9152 with `[0.8980, 0.9296]`. Calibration split: 582/3/138/140, recall 0.8083, F1 0.8920.
 
@@ -72,7 +72,7 @@ The authored subset rerun alone gives the same decisions as the combined run and
 | capability only | 144 | 0 | 301 | 235 | 100.0% | 32.4% | 0.489 | 55.7% | 55.6% | 32.4% |
 | capability + contracts | 325 | 2 | 120 | 233 | 99.4% | 73.0% | 0.842 | 82.1% | 81.3% | 73.0% |
 | + IFC | 367 | 2 | 78 | 233 | 99.5% | 82.5% | 0.902 | 88.2% | 87.5% | 82.5% |
-| **full (7 layers)** | **444** | **2** | **1** | **233** | **99.6% [98.4, 99.9]** | **99.8% [98.7, 100.0]** | **0.997** | **99.6%** | **97.9%** | **96.6%** |
+| **full pipeline** | **444** | **2** | **1** | **233** | **99.6% [98.4, 99.9]** | **99.8% [98.7, 100.0]** | **0.997** | **99.6%** | **97.9%** | **96.6%** |
 
 Splits: calibration 224/0/1/112; test 220/2/0/121, recall 1.000 with bootstrap `[1.000, 1.000]`, F1 0.9955 with `[0.9877, 1.000]`.
 

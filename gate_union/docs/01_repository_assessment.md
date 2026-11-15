@@ -203,7 +203,7 @@ Existing corpora:
 
 ---
 
-## 4. Gap analysis against the requested seven layers
+## 4. Gap analysis against the required layers
 
 | Required layer | Exists? | Actually enforced today | Main gap |
 |---|---|---|---|

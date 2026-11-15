@@ -2,7 +2,7 @@
 
 Run from inside gate-union:  python scripts/coverage_table.py
 
-Table A is the answer to the reviewer's question in numbers rather than
+Table A is the answer to the coverage question in numbers rather than
 adjectives. Every cell is a count taken from a manifest audit, and the point of
 printing zeros is that the zeros are the finding: no published dataset we could
 verify supplies the transition-system or accumulated-state families at all, which
@@ -121,7 +121,7 @@ def main() -> None:
            f"- Families with zero external supply: {', '.join(zero_external) or 'none'}.",
            "- The two stages with zero external supply across every audited source are dfa and dcbf. "
            "Their cases are the authored stratum, and the authored share column above is the number a "
-           "reviewer should read as the cost of the gap, not as a claim about the field.",
+           "reader should read as the cost of the gap, not as a claim about the field.",
            "- Where several families share one owning layer, extra rows for those families do not buy a "
            "new invariant test. F01, F02, F03 and F16 are all privilege-stage properties, and F05, F06, "
            "F07, F08 and F09 are all contract properties, which is why the corpus quota is set per layer "

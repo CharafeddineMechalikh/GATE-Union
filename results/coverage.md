@@ -40,6 +40,6 @@ The layer axis is the one the paper's claim lives on, so this is the table that 
 
 - 10 of 17 families have any external supply at all.
 - Families with zero external supply: F01, F03, F08, F10, F11, F12, F14.
-- The two stages with zero external supply across every audited source are dfa and dcbf. Their cases are the authored stratum, and the authored share column above is the number a reviewer should read as the cost of the gap, not as a claim about the field.
+- The two stages with zero external supply across every audited source are dfa and dcbf. Their cases are the authored stratum, and the authored share column above is the number a reader should read as the cost of the gap, not as a claim about the field.
 - Where several families share one owning layer, extra rows for those families do not buy a new invariant test. F01, F02, F03 and F16 are all privilege-stage properties, and F05, F06, F07, F08 and F09 are all contract properties, which is why the corpus quota is set per layer and not per family.
 - Row counts here are before template dedup, and the difference is not cosmetic. The 1,054 InjecAgent rows are 62 attacker scenarios against 17 user tools, and the 731 rows the normalizer emits collapse to 43 templates. The contracts layer therefore looks far better supplied in rows than it is in distinct attacks, and the layer supply of privilege, at 37 external rows across every audited source, is the thin one.
