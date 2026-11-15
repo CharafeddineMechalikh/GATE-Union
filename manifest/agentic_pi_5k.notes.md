@@ -18,7 +18,7 @@ Neither artefact has a paper. Both are single-author curation by **Enes Deniz** 
 | Redistribution verdict | `allowed_with_attribution` (grant asserted in card + README + CITATION.cff only) | `allowed_with_attribution` |
 | Size fetched | 7 files, 470,769 bytes | 28 files, 889,269 bytes |
 
-Reviewer rerun is not blocked by either: both are ungated and anonymous-downloadable.
+Independent rerun is not blocked by either: both are ungated and anonymous-downloadable.
 
 **Operative CC BY 4.0 terms, quoted briefly** (from `boundary_pairs_repo/LICENSE`; the 5K ships no text, so this is the same licence's legal code by the same author):
 - §2(a)(1) grant: "Subject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable license to exercise the Licensed Rights in the Licensed Material to: a. **reproduce and Share the Licensed Material**, in whole or in part; and b. **produce, reproduce, and Share Adapted Material**."

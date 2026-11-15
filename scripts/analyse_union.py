@@ -174,7 +174,7 @@ def main() -> None:
     lines.append("")
 
     # 7. why, in the monitor's own words. The shape list above says which controls
-    # were withheld; this says the mechanism, which is the part a reviewer needs in
+    # were withheld; this says the mechanism, which is the part a reader needs in
     # order to tell a threshold complaint from a structural one.
     lines.append("## Mechanism of every withheld control")
     lines.append("")

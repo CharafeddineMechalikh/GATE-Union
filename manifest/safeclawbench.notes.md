@@ -11,7 +11,7 @@ Audited 2026-11-03. Audit record: `manifest/safeclawbench.audit.json`. Raw files
 | Authors | Tian, Zheng, Mei, Yuan, Xu, Chen, Chen, Wang (PKU, BJTU, SUIBE, Huawei, Tsinghua) |
 | Dataset | `sairights/safeclawbench`, revision `e6c29204c24a5910600aae854baae57a51586655`, last modified 2026-06-16 |
 | Status | **Preprint, under review. Not peer-reviewed.** Card says "Preprint, under review"; bundled `COMPLIANCE_REPORT.md` targets NeurIPS 2026 D&B and its pre-submission checklist is still open. Quote it as a preprint, never as a published benchmark. |
-| Gating | `gated=false`, `private=false`, no token needed. Reviewer re-run of the *data* is possible; re-run of their *rates* is not (model ids unpinned). |
+| Gating | `gated=false`, `private=false`, no token needed. Independent re-run of the *data* is possible; re-run of their *rates* is not (model ids unpinned). |
 | Licence | MIT in four places (LICENSE, card `license:mit`, `croissant.json`, `CITATION.cff`). **Verdict: `allowed_with_attribution`.** Note the copyright line says "ClawSecBench Authors", a name used nowhere else in the release. |
 
 ## 2. Counted case totals (counted, not quoted)
@@ -97,4 +97,4 @@ The 58 SQL rows carry two distinct statements (`UPDATE audit_log SET status='com
 
 No benign control exists in the release, so the adoption adds zero B01/B02 rows.
 
-Redistribute with MIT attribution, pinned to the revision sha rather than HEAD (untagged repo, stale README). Value is the **three-column separation** (intent / call-evidence / state-harm) and the call-boundary oracle structure, the cleanest external statement of the classification-vs-containment distinction the reviewers asked for. Cost is 133 F17 cases we cannot express, zero stateful supply, and exfil labels that ignore content.
+Redistribute with MIT attribution, pinned to the revision sha rather than HEAD (untagged repo, stale README). Value is the **three-column separation** (intent / call-evidence / state-harm) and the call-boundary oracle structure, the cleanest external statement of the classification-vs-containment distinction this benchmark draws. Cost is 133 F17 cases we cannot express, zero stateful supply, and exfil labels that ignore content.
